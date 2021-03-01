@@ -21,6 +21,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center'
   },
   headerTitle: {
+    fontFamily: 'poppins-semibold',
     color: THEME.secondary.extraLight,
     fontSize: 22
   }

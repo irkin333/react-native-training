@@ -77,6 +77,7 @@ const styles = StyleSheet.create({
     color: THEME.secondary.extraDark
   },
   title: {
+    fontFamily: 'poppins-regular',
     fontSize: 20,
     marginVertical: 10
   },
