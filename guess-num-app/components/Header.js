@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { THEME } from '../shared/theme/colors';
+import FONT_STYLE from '../shared/general-styles/fonts';
 
 const HeaderComponent = props => {
   return (
@@ -21,9 +22,9 @@ const styles = StyleSheet.create({
     justifyContent: 'center'
   },
   headerTitle: {
-    fontFamily: 'poppins-semibold',
-    color: THEME.secondary.extraLight,
-    fontSize: 22
+    ...FONT_STYLE.title,
+    fontSize: 24,
+    color: THEME.secondary.extraLight
   }
 });
 

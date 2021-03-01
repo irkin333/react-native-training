@@ -3,7 +3,9 @@ import { StyleSheet, Text, View, Button, TouchableWithoutFeedback, Keyboard, Ale
 import Card from '../components/Card';
 import InputComponent from '../components/Input';
 import NumberComponent from '../components/NumberComponent';
-import { THEME } from '../shared/theme/colors';
+import AppButton from '../components/AppButton';
+import { THEME } from '../shared/theme/colors'; 
+import FONT_STYLE from '../shared/general-styles/fonts';
 
 const StartGameComponent = props => {
   const [enteredValue, setEnteredValue] = useState(''); 
@@ -35,9 +37,9 @@ const StartGameComponent = props => {
   if(confirmed) {
     confirmedOutput = (
     <Card styles={styles.summaryContainer}>
-      <Text>You selected</Text>
+      <Text style={styles.text}>You selected</Text>
       <NumberComponent>{selectedNumber}</NumberComponent>
-      <Button title="Start Game" onPress={() => { props.onStartGame(selectedNumber) }} color={THEME.secondary.info}/>
+      <AppButton onPress={() => { props.onStartGame(selectedNumber) }}>Start Game</AppButton>
     </Card>
     );
   }
@@ -77,8 +79,7 @@ const styles = StyleSheet.create({
     color: THEME.secondary.extraDark
   },
   title: {
-    fontFamily: 'poppins-regular',
-    fontSize: 20,
+    ...FONT_STYLE.title,
     marginVertical: 10
   },
   inputContainer: {
@@ -99,11 +100,15 @@ const styles = StyleSheet.create({
   input: {
     width: 115,
     textAlign: 'center',
-    marginBottom: 10
+    marginBottom: 10,
+     ...FONT_STYLE.default
   },
   summaryContainer: {
     marginVertical: 20,
     alignItems: 'center'
+  },
+  text: {
+    ...FONT_STYLE.default
   }
 });
 

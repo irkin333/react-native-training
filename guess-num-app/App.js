@@ -10,6 +10,7 @@ import * as Font from 'expo-font';
 const fetchFonts = () => {
   return Font.loadAsync({
     'poppins-thin': require('./assets/fonts/Poppins-Thin.ttf'),
+    'poppins-extralight': require('./assets/fonts/Poppins-ExtraLight.ttf'),
     'poppins-regular': require('./assets/fonts/Poppins-Regular.ttf'),
     'poppins-semibold': require('./assets/fonts/Poppins-SemiBold.ttf'),
   });
@@ -38,7 +39,7 @@ export default function App() {
   if(userNumber && roundsNumber <= 0) {
     content = <GameScreenComponent userChoice={userNumber} onGameOver={gameOverHandler} />
   } else if(roundsNumber > 0) {
-    content = <GameOverScreenComponent rounds={roundsNumber} onStartGame={startGameHandler} />
+    content = <GameOverScreenComponent rounds={roundsNumber} userChoice={userNumber} onStartGame={startGameHandler} />
   }
   return (
     <View style={styles.appWrapper}>

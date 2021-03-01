@@ -1,6 +1,8 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { THEME } from '../shared/theme/colors';
+import FONT_STYLE from '../shared/general-styles/fonts';
+
 
 const NumberComponent = props => {
   return (
@@ -18,9 +20,11 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     marginVertical: 10,
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    minWidth: 60
   },
   number: {
+    ...FONT_STYLE.default,
     color: THEME.secondary.accent,
     fontSize: 22
   }

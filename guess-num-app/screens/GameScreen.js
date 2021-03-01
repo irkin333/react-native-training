@@ -1,8 +1,11 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { StyleSheet, View, Text, Button, Alert } from 'react-native';
+import { StyleSheet, View, Text, Alert } from 'react-native';
 import NumberComponent from '../components/NumberComponent'
+import AppButton from '../components/AppButton'
 import Card from '../components/Card';
+import { Ionicons } from '@expo/vector-icons';
 import { THEME } from '../shared/theme/colors';
+import FONT_STYLE from '../shared/general-styles/fonts';
 
 
 const generateRandomBetween = (min, max, exclude) => {
@@ -53,11 +56,15 @@ const GameScreenComponent = props => {
 
   return (
     <View style={styles.screen}>
-      <Text>Opponent's guess:</Text>
+      <Text style={styles.text}>Opponent's guess:</Text>
       <NumberComponent>{currentGuess}</NumberComponent>
       <Card styles={styles.buttonContainer}>
-        <Button title="LOWER" onPress={nextGuessHandler.bind(this, 'lower')} />
-        <Button title="GREATER" onPress={nextGuessHandler.bind(this, 'greater')} />
+        <AppButton onPress={nextGuessHandler.bind(this, 'lower')}>
+          <Ionicons name='md-remove' size={30}/>
+        </AppButton>
+        <AppButton onPress={nextGuessHandler.bind(this, 'greater')}>
+          <Ionicons name='md-add' size={30}/>
+        </AppButton>
       </Card>
     </View>
   );
@@ -79,6 +86,9 @@ const styles = StyleSheet.create({
     marginTop: 20,
     width: 300,
     maxWidth: '80%'
+  },
+  text: {
+     ...FONT_STYLE.default
   }
 });
 
