@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { StyleSheet, View, Text, Alert } from 'react-native';
+import { StyleSheet, View, Text, Alert, ScrollView, FlatList } from 'react-native';
 import NumberComponent from '../components/NumberComponent'
 import AppButton from '../components/AppButton'
 import Card from '../components/Card';
@@ -18,16 +18,27 @@ const generateRandomBetween = (min, max, exclude) => {
   return rndNum;
 };
 
+const renderListItem = (numOfRounds, value) => {
+  return (
+    <View style={styles.listItem}>
+      <Text style={styles.text}>#{numOfRounds - value.index}</Text>
+      <Text>  </Text>
+      <Text style={styles.text}>{value.item}</Text>
+    </View>
+  );
+}
+
 const GameScreenComponent = props => {
   const currentLow = useRef(1);
   const currentHigh = useRef(100);
-  const [currentGuess, setCurrentGuess] = useState(generateRandomBetween(currentLow.current, currentHigh.current, props.userChoice));
-  const [rounds, setRounds] = useState(0);
+  const initialGuess = generateRandomBetween(currentLow.current, currentHigh.current, props.userChoice);
+  const [currentGuess, setCurrentGuess] = useState(initialGuess);
+  const [rounds, setRounds] = useState([initialGuess.toString()]);
   const { userChoice, onGameOver } = props;
 
   useEffect(() => {
     if (currentGuess === userChoice) {
-      onGameOver(rounds);
+      onGameOver(rounds.length);
     }
   }, [currentGuess, userChoice, onGameOver]);
 
@@ -46,12 +57,12 @@ const GameScreenComponent = props => {
     }
 
     if (direction === 'greater') {
-      currentLow.current = currentGuess;
+      currentLow.current = currentGuess + 1;
     }
 
     const nextNumber = generateRandomBetween(currentLow.current, currentHigh.current, currentGuess);
     setCurrentGuess(nextNumber);
-    setRounds(curRounds => curRounds + 1);
+    setRounds(curRounds => [nextNumber.toString(), ...curRounds]);
   };
 
   return (
@@ -66,6 +77,14 @@ const GameScreenComponent = props => {
           <Ionicons name='md-add' size={30}/>
         </AppButton>
       </Card>
+
+      <View style={styles.list}>
+        {/* <ScrollView contentContainerStyle={styles.contentContainer}>
+          {rounds.map((guess, i) => renderListItem(guess, rounds.length - i))}
+        </ScrollView> */}
+
+        <FlatList keyExtractor={item => item} data={rounds} renderItem={renderListItem.bind(this, rounds.length)}/>
+      </View>
     </View>
   );
 };
@@ -89,6 +108,25 @@ const styles = StyleSheet.create({
   },
   text: {
      ...FONT_STYLE.default
+  },
+  list: {
+    marginTop: 15
+  },
+  listItem: {
+    width: '100%',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderColor: THEME.primary.shade300,
+    borderWidth: 1,
+    padding: 15,
+    backgroundColor: THEME.secondary.extraLight,
+    marginTop: -1
+  },
+  contentContainer: {
+    // minWidth: '50%',
+    // justifyContent: 'flex-end',
+    // height: '100%'
   }
 });
 
