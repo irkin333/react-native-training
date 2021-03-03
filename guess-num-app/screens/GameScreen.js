@@ -69,21 +69,21 @@ const GameScreenComponent = props => {
     <View style={styles.screen}>
       <Text style={styles.text}>Opponent's guess:</Text>
       <NumberComponent>{currentGuess}</NumberComponent>
-      <Card styles={styles.buttonContainer}>
+      {/* <Card styles={styles.buttonContainer}>
         <AppButton onPress={nextGuessHandler.bind(this, 'lower')}>
           <Ionicons name='md-remove' size={30}/>
         </AppButton>
         <AppButton onPress={nextGuessHandler.bind(this, 'greater')}>
           <Ionicons name='md-add' size={30}/>
         </AppButton>
-      </Card>
+      </Card> */}
 
       <View style={styles.list}>
         {/* <ScrollView contentContainerStyle={styles.contentContainer}>
           {rounds.map((guess, i) => renderListItem(guess, rounds.length - i))}
         </ScrollView> */}
 
-        <FlatList keyExtractor={item => item} data={rounds} renderItem={renderListItem.bind(this, rounds.length)}/>
+        {/* <FlatList keyExtractor={item => item} data={rounds} renderItem={renderListItem.bind(this, rounds.length)}/> */}
       </View>
     </View>
   );

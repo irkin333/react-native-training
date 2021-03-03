@@ -16,7 +16,10 @@ const styles = StyleSheet.create({
   container: {
     borderColor: THEME.secondary.accent,
     borderWidth: 2,
-    padding: 10,
+    paddingTop: 10,
+    paddingBottom: 5,
+    paddingLeft: 10,
+    paddingRight: 10,
     borderRadius: 10,
     marginVertical: 10,
     alignItems: 'center',
