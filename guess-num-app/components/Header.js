@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, Platform } from 'react-native';
 import { THEME } from '../shared/theme/colors';
 import FONT_STYLE from '../shared/general-styles/fonts';
 
@@ -16,7 +16,7 @@ const styles = StyleSheet.create({
     paddingTop: 40,
     width: '100%',
     height: 90,
-    backgroundColor: THEME.primary.shade800,
+    backgroundColor: Platform.OS === 'android' ? THEME.primary.shade900 : THEME.primary.shade700,
     alignItems: 'center',
     flexDirection: 'row',
     justifyContent: 'center'

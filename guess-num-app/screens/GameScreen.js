@@ -1,12 +1,12 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { StyleSheet, View, Text, Alert, ScrollView, FlatList } from 'react-native';
+import { StyleSheet, View, Text, Alert, ScrollView, FlatList, Dimensions } from 'react-native';
 import NumberComponent from '../components/NumberComponent'
 import AppButton from '../components/AppButton'
 import Card from '../components/Card';
 import { Ionicons } from '@expo/vector-icons';
 import { THEME } from '../shared/theme/colors';
 import FONT_STYLE from '../shared/general-styles/fonts';
-
+// import { ScreenOrientation } from 'expo-screen-orientation';
 
 const generateRandomBetween = (min, max, exclude) => {
   min = Math.ceil(min);
@@ -29,12 +29,27 @@ const renderListItem = (numOfRounds, value) => {
 }
 
 const GameScreenComponent = props => {
+  // ScreenOrientation.lockAsynck(ScreenOrientation.OrientantionLock.PORTRAIT);
+  // ScreenOrientation.addOrientationListener(() => {...});
+
   const currentLow = useRef(1);
   const currentHigh = useRef(100);
   const initialGuess = generateRandomBetween(currentLow.current, currentHigh.current, props.userChoice);
   const [currentGuess, setCurrentGuess] = useState(initialGuess);
   const [rounds, setRounds] = useState([initialGuess.toString()]);
+  const [devicePosition, setDevicePosition] = useState(Dimensions.get('window').height > 500 ? 'portrait' : 'landscape');
   const { userChoice, onGameOver } = props;
+
+  useEffect(() => {
+    const updateLayout = () => {
+      setDevicePosition(Dimensions.get('window').height > 500 ? 'portrait' : 'landscape');
+    };
+    Dimensions.addEventListener('change', updateLayout);
+
+    return () => {
+      Dimensions.removeEventListener('change', updateLayout);
+    }
+  });
 
   useEffect(() => {
     if (currentGuess === userChoice) {
@@ -65,25 +80,47 @@ const GameScreenComponent = props => {
     setRounds(curRounds => [nextNumber.toString(), ...curRounds]);
   };
 
+  if (devicePosition === 'portrait') {
+    return (
+      <View style={styles.screen}>
+        <Text style={styles.text}>Opponent's guess:</Text>
+        <NumberComponent>{currentGuess}</NumberComponent>
+        <Card styles={styles.buttonContainer}>
+          <AppButton onPress={nextGuessHandler.bind(this, 'lower')}>
+            <Ionicons name='md-remove' size={30}/>
+          </AppButton>
+          <AppButton onPress={nextGuessHandler.bind(this, 'greater')}>
+            <Ionicons name='md-add' size={30}/>
+          </AppButton>
+        </Card>
+
+        <View style={styles.list}>
+          <FlatList keyExtractor={item => item} data={rounds} renderItem={renderListItem.bind(this, rounds.length)}/>
+        </View>
+      </View>
+    ) 
+  }
+
   return (
     <View style={styles.screen}>
       <Text style={styles.text}>Opponent's guess:</Text>
-      <NumberComponent>{currentGuess}</NumberComponent>
-      {/* <Card styles={styles.buttonContainer}>
+      
+      <View style={styles.landscapeView}>
         <AppButton onPress={nextGuessHandler.bind(this, 'lower')}>
           <Ionicons name='md-remove' size={30}/>
         </AppButton>
+        <NumberComponent>{currentGuess}</NumberComponent>
         <AppButton onPress={nextGuessHandler.bind(this, 'greater')}>
           <Ionicons name='md-add' size={30}/>
         </AppButton>
-      </Card> */}
+      </View>
 
       <View style={styles.list}>
         {/* <ScrollView contentContainerStyle={styles.contentContainer}>
           {rounds.map((guess, i) => renderListItem(guess, rounds.length - i))}
         </ScrollView> */}
 
-        {/* <FlatList keyExtractor={item => item} data={rounds} renderItem={renderListItem.bind(this, rounds.length)}/> */}
+        <FlatList keyExtractor={item => item} data={rounds} renderItem={renderListItem.bind(this, rounds.length)}/>
       </View>
     </View>
   );
@@ -98,6 +135,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     color: THEME.secondary.extraDark,
     width: '100%'
+  },
+  landscapeView: {
+    width: '80%',
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    alignItems: 'center'
   },
   buttonContainer: {
     flexDirection: 'row',
