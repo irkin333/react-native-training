@@ -1,10 +1,15 @@
-import { StatusBar } from 'expo-status-bar';
 import React, { useState } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
 import AppLoading from 'expo-app-loading'; 
 import * as Font from 'expo-font';
 import MealsNavigator from './navigation/meals-navigation';
+import * as eva from '@eva-design/eva';
+import { ApplicationProvider, IconRegistry, Layout } from '@ui-kitten/components';
+import { EvaIconsPack } from '@ui-kitten/eva-icons';
+import { enableScreens } from 'react-native-screens';
+import { default as theme } from './shared/theme/meals-app-theme.json';
+import { default as mapping } from './shared/general-styles/meals-typography.json'; // <-- Import app mapping
 
+enableScreens();
 const fetchFonts = () => {
   return Font.loadAsync({
     'poppins-thin': require('./assets/fonts/Poppins-Thin.ttf'),
@@ -24,15 +29,13 @@ export default function App() {
   }
 
   return (
-    <MealsNavigator />
+    <>
+      <IconRegistry icons={EvaIconsPack} />
+      <ApplicationProvider {...eva} theme={{ ...eva.light, ...theme }} customMapping={mapping as any}>
+        <Layout style={{flex: 1}} level='4'>
+          <MealsNavigator />
+        </Layout>
+      </ApplicationProvider>
+    </>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});

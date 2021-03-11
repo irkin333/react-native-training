@@ -1,32 +1,62 @@
 import React from 'react';
-import { StyleSheet, Text, View, FlatList } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { CATEGORIES } from '../mocks/dummy-data';
+import { Button, Icon, List, ListItem } from '@ui-kitten/components';
 
 const CategoriesScreen = (props: any) => {
-  console.log(CATEGORIES)
+  const renderItemAccessory = (params: any) => (
+    <Button size='small' onPress={() => {
+      props.navigation.navigate({
+        routeName: 'categoryMeals',
+        params: {
+          categoryId: params.id,
+          categoryTitle: params.title
+        }
+      });
+    }}>View</Button>
+  );
+
+  const renderItemIcon = (props: any) => {
+    return (<Icon {...props} name='heart'/>)
+  };
+
   const renderGridItem = (itemData: {[key: string]: any}) => {
     return (
-      <View style={styles.gridItem}>
-        <Text>{itemData.item.title}</Text>
-      </View>
+      <ListItem
+          style={styles.listItem}
+          title={itemData.item.title}
+          description={itemData.item.description}
+          accessoryLeft={() => { return renderItemIcon({ style: {
+            height: 24,
+            marginHorizontal: 8,
+            tintColor: itemData.item.color,
+            width: 24
+          }});}}
+          accessoryRight={() => renderItemAccessory({id: itemData.item.id, title: itemData.item.title})}
+      />
     );
   }
+
   return (
-    <FlatList data={CATEGORIES} renderItem={renderGridItem} numColumns={2} />
+    <List
+      style={styles.container}
+      data={CATEGORIES}
+      renderItem={renderGridItem}
+    />
   );
 };
 
+// CategoriesScreen.navigationOptions = {
+//   headerTitle: 'Meal Categories'
+// };
+
 const styles = StyleSheet.create({
-  screen: {
-    width: '100%',
-    flex: 1, 
-    justifyContent: 'center',
-    alignContent: 'center'
-  },
-  gridItem: {
+  container: {
     flex: 1,
-    margin: 15,
-    height: 120
+    minHeight: 190
+  },
+  listItem: {
+    // minHeight: 90
   }
 });
 
