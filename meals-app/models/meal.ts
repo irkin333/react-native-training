@@ -12,6 +12,7 @@ class Meal {
   public isVegan: boolean;
   public isVegeterian: boolean;
   public isLactoseFree: boolean;
+  public isFavorite?: boolean;
 
   constructor(
     id: string,

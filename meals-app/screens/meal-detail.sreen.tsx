@@ -1,15 +1,18 @@
 import React from 'react';
 import { StyleSheet, View, Image } from 'react-native';
-import { Card, Text } from '@ui-kitten/components';
+import { Card, Text, Icon } from '@ui-kitten/components';
 import { MEALS } from '../mocks/dummy-data';
 
 const MealDetailScreen = (props: any) => {
   const mealId = props.navigation.getParam('mealId');
   const mealDetails:  {[key: string]: any } = MEALS.find(meal => meal.id === mealId) || {};
 
+  const toggleFavorites = () => {
+    mealDetails.isFavorite = !mealDetails.isFavorite;
+  }
+
   return (
     <Card style={styles.card}>
-
         <View style={styles.cardHeader}>
           <Image
             style={styles.cardImage}
@@ -18,6 +21,10 @@ const MealDetailScreen = (props: any) => {
           />
           <View style={styles.cardTitle}>
             <Text category='h5' numberOfLines={2}>{mealDetails.title}</Text>
+            <Icon name='star'
+                  fill={mealDetails.isFavorite ? '#2F0F7A' : '#cecece'}
+                  style={{width: 22, height: 22}}
+                  onPress={toggleFavorites}/>
           </View>
         </View>
       </Card>
@@ -53,7 +60,10 @@ const styles = StyleSheet.create({
   cardTitle: {
     width: '100%',
     paddingVertical: 3,
-    paddingHorizontal: 5
+    paddingHorizontal: 5,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between'
   },
   headerIcon: {
     width: 22,

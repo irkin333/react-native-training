@@ -1,7 +1,6 @@
 import React from 'react';
-import { View, FlatList } from 'react-native';
 import { MEALS } from '../mocks/dummy-data';
-import MealItemComponent from '../components/meal-item.component';
+import MealsListComponent from '../components/meals-list.component';
 
 const CategoryMealsScreen = (props: any) => {
   const categoryId = props.navigation.getParam('categoryId');
@@ -9,27 +8,8 @@ const CategoryMealsScreen = (props: any) => {
     return meal.categoryIds.indexOf(categoryId) >= 0;
   });
 
-  const navigateToMealDetails = (params: any) => {
-    props.navigation.navigate({
-      routeName: 'mealDetail',
-      params: {
-        mealId: params.id
-      }
-    });
-  }
-
-  const renderGridItem = (itemData: {[key: string]: any}) => {
-    return <MealItemComponent itemData={itemData} onNavigate={navigateToMealDetails}/>
-  }
-
   return (
-    <View>
-      <FlatList
-        data={displayedMeals}
-        renderItem={renderGridItem}
-        numColumns={2}
-      />
-    </View>
+    <MealsListComponent displayedMeals={displayedMeals} navigation={props.navigation}/>
   );
 };
 

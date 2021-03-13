@@ -8,10 +8,12 @@ import { EvaIconsPack } from '@ui-kitten/eva-icons';
 import { enableScreens } from 'react-native-screens';
 import { default as theme } from './shared/theme/meals-app-theme.json';
 import { default as mapping } from './shared/general-styles/meals-typography.json'; // <-- Import app mapping
+import {AppNavigator} from './kitten-nav/navigation.component';
 
 enableScreens();
 const fetchFonts = () => {
   return Font.loadAsync({
+    'OpenSans-Bold': require('./assets/fonts/OpenSans-Bold.ttf'),
     'poppins-thin': require('./assets/fonts/Poppins-Thin.ttf'),
     'poppins-extralight': require('./assets/fonts/Poppins-ExtraLight.ttf'),
     'poppins-regular': require('./assets/fonts/Poppins-Regular.ttf'),
@@ -35,6 +37,7 @@ export default function App() {
         <Layout style={{flex: 1}} level='1'>
           <MealsNavigator />
         </Layout>
+        {/* <AppNavigator/> */}
       </ApplicationProvider>
     </>
   );
