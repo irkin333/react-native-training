@@ -9,8 +9,17 @@ const CategoryMealsScreen = (props: any) => {
     return meal.categoryIds.indexOf(categoryId) >= 0;
   });
 
+  const navigateToMealDetails = (params: any) => {
+    props.navigation.navigate({
+      routeName: 'mealDetail',
+      params: {
+        mealId: params.id
+      }
+    });
+  }
+
   const renderGridItem = (itemData: {[key: string]: any}) => {
-    return <MealItemComponent itemData={itemData} />
+    return <MealItemComponent itemData={itemData} onNavigate={navigateToMealDetails}/>
   }
 
   return (

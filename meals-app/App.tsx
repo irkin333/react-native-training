@@ -32,7 +32,7 @@ export default function App() {
     <>
       <IconRegistry icons={EvaIconsPack} />
       <ApplicationProvider {...eva} theme={{ ...eva.light, ...theme }} customMapping={mapping as any}>
-        <Layout style={{flex: 1}} level='4'>
+        <Layout style={{flex: 1}} level='1'>
           <MealsNavigator />
         </Layout>
       </ApplicationProvider>

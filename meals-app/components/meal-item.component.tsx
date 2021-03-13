@@ -19,21 +19,16 @@ const MealItemComponent = (props: any) => {
           footer={() => {
             return (
               <View style={styles.cardFooter}>
-                <Button size='small' status='primary' onPress={() => { console.log(item.id) }}>
+                <Button size='small' status='primary' onPress={() => { props.onNavigate(item) }}>
                   More
                 </Button>
               </View>
             )}}>
          <ImageBackground source={{uri: item.imageUrl}} style={styles.bgImage}>
           <View style={styles.cardDetailsWrapper}>
-            {/* <Image
-                style={styles.cardImage}
-                source={{uri: item.imageUrl}}
-                resizeMode="cover"
-                /> */}
             <View style={styles.cardDetails}>
-              <Icon style={styles.cardDetailIcon} fill='#8F9BB3' name='clock'/>
-              <Text>{item.duration}m</Text>
+              <Icon style={styles.cardDetailIcon} fill='#ffffff' name='clock'/>
+              <Text style={styles.detailsText}>{item.duration}m</Text>
             </View>
           </View>
         </ImageBackground>
@@ -54,36 +49,31 @@ const styles = StyleSheet.create({
   },
   cardDetailsWrapper: {
     minHeight: 120,
-    // marginVertical: -15,
-    // marginHorizontal: -23,
-    justifyContent: 'flex-end',
+    justifyContent: 'flex-end'
   },
   bgImage: {
     marginVertical: -15,
     marginHorizontal: -23,
     resizeMode: "contain"
   },
-  cardImage: {
-    flex: 1,
-    width: '100%',
-    height: '100%',
-    minHeight: 80
-  },
   cardFooter: {
     padding: 10
   },
   cardDetails: {
-    marginTop: 5,
     paddingRight: 5,
-    paddingBottom: 5,
+    paddingVertical: 3,
     flexDirection: 'row',
     justifyContent: 'flex-end',
-    alignItems: 'center'
+    alignItems: 'center',
+    backgroundColor: '#00000065'
   },
   cardDetailIcon: {
-    width: 25,
-    height: 25,
+    width: 22,
+    height: 22,
     marginRight: 3
+  },
+  detailsText: {
+    color: '#ffffff'
   }
 });
 

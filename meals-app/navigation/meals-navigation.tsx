@@ -1,6 +1,7 @@
 import {Platform} from 'react-native';
 import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
+import { createBottomTabNavigator } from 'react-navigation-tabs';
 
 import CategoriesScreen from '../screens/categories.screen';
 import CategoryMealsScreen from '../screens/category-meals.screen';
@@ -23,11 +24,9 @@ const MealsNavigator = createStackNavigator({
   categoryMeals: {
     screen: CategoryMealsScreen
   },
-  mealDetail: {
-    screen: MealDetailScreen
-  }
+  mealDetail: MealDetailScreen
 }, {
-  // initialRouteName: 'categories', //set up root screen
+  initialRouteName: 'categories', //set up root screen
   defaultNavigationOptions: navigationOptions
 });
 
@@ -40,3 +39,24 @@ export default createAppContainer(MealsNavigator);
 // props.navigation.replace('categoryMeals'); //replace screen in stack
 // props.navigation.goBack(); //go to the previous screen in the stack
 // props.navigation.popToTop(); //go to the root screen (the first in the stack)
+
+// import React from 'react';
+// import { NavigationContainer } from '@react-navigation/native';
+// import { createStackNavigator } from '@react-navigation/stack';
+// import CategoriesScreen from '../screens/categories.screen';
+// import CategoryMealsScreen from '../screens/category-meals.screen';
+
+// const { Navigator, Screen } = createStackNavigator();
+
+// const HomeNavigator = () => (
+//   <Navigator headerMode='none'>
+//     <Screen name='categories' component={CategoriesScreen}/>
+//     <Screen name='categoryMeals' component={CategoryMealsScreen}/>
+//   </Navigator>
+// );
+
+// export const MealsNavigator = () => (
+//   <NavigationContainer>
+//     <HomeNavigator/>
+//   </NavigationContainer>
+// );

@@ -23,7 +23,6 @@ const CategoriesScreen = (props: any) => {
   const renderGridItem = (itemData: {[key: string]: any}) => {
     return (
       <ListItem
-          style={styles.listItem}
           title={itemData.item.title}
           description={itemData.item.description}
           accessoryLeft={() => { return renderItemIcon({ style: {
@@ -42,21 +41,14 @@ const CategoriesScreen = (props: any) => {
       style={styles.container}
       data={CATEGORIES}
       renderItem={renderGridItem}
-    />
+    />    
   );
 };
-
-// CategoriesScreen.navigationOptions = {
-//   headerTitle: 'Meal Categories'
-// };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     minHeight: 190
-  },
-  listItem: {
-    // minHeight: 90
   }
 });
 
