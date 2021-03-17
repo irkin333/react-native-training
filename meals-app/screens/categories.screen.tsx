@@ -2,6 +2,8 @@ import React from 'react';
 import { StyleSheet } from 'react-native';
 import { CATEGORIES } from '../mocks/dummy-data';
 import { Button, Icon, List, ListItem } from '@ui-kitten/components';
+import {HeaderButtons, Item} from 'react-navigation-header-buttons';
+import HeaderBtnComponent from '../components/header/header-btn.component';
 
 const CategoriesScreen = (props: any) => {
   const renderItemAccessory = (params: any) => (
@@ -43,6 +45,24 @@ const CategoriesScreen = (props: any) => {
       renderItem={renderGridItem}
     />    
   );
+};
+
+CategoriesScreen.navigationOptions = (navigationData: {[key: string]: any}) => {
+  return {
+    headerLeft: () => (
+      <HeaderButtons HeaderButtonComponent={HeaderBtnComponent}>
+        <Item title='Menu'
+              iconName='menu-outline' 
+              color='#843CDB'
+              style={{
+                marginLeft: 5
+              }}
+              onPress={() => {
+                navigationData.navigation.toggleDrawer();
+              }}/>
+      </HeaderButtons>
+    )
+  }
 };
 
 const styles = StyleSheet.create({

@@ -4,9 +4,9 @@ import { createBottomTabNavigator } from 'react-navigation-tabs';
 import { createDrawerNavigator } from 'react-navigation-drawer';
 
 import { Icon } from '@ui-kitten/components';
-import FilterScreen from '../screens/filters.sreen';
 import MealsNavigator from './meals-navigation';
 import FavoritesStackNavigator from './favorites-navigation';
+import FiltersStackNavigator from './filters-navigation';
 
 const MealsTabNavigator = createBottomTabNavigator({
   meals: {
@@ -31,22 +31,29 @@ const MealsTabNavigator = createBottomTabNavigator({
   }
 });
 
-const MealsDrawerNavigator = createDrawerNavigator({
+const MainNavigator = createDrawerNavigator({
   mealsFavs: {
     screen: MealsTabNavigator,
     navigationOptions: {
-      
+      drawerLabel: 'Meals'
     }
   },
   filter: {
-    screen: FilterScreen,
+    screen: FiltersStackNavigator,
     navigationOptions: {
-      
+      drawerLabel: 'Filters'
+    }
+  }
+}, {
+  contentOptions: {
+    activeTintColor: '#2F0F7A',
+    labelStyle: {
+      // fontFamily: 'poppins-extralight'
     }
   }
 });
 
-export default createAppContainer(MealsDrawerNavigator);
+export default createAppContainer(MainNavigator);
 
 //*** navigation via props in the component ***
 

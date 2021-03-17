@@ -43,6 +43,7 @@ export const MEALS = [
     false,
     true,
     true,
+    true,
     true
   ),
 
@@ -69,7 +70,8 @@ export const MEALS = [
     false,
     false,
     false,
-    false
+    false,
+    true
   ),
 
   new Meal(

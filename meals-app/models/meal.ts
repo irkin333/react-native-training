@@ -27,7 +27,8 @@ class Meal {
     isGlutenFree: boolean,
     isVegan: boolean,
     isVegeterian: boolean,
-    isLactoseFree: boolean
+    isLactoseFree: boolean,
+    isFavorite?: boolean,
   ) {
     this.id = id;
     this.categoryIds = categoryIds;
@@ -42,6 +43,7 @@ class Meal {
     this.isVegan = isVegan;
     this.isVegeterian = isVegeterian;
     this.isLactoseFree = isLactoseFree;
+    this.isFavorite = isFavorite || false;
   }
 }
 

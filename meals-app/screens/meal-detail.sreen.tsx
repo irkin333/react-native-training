@@ -1,9 +1,10 @@
 import React from 'react';
 import { StyleSheet, View, Image } from 'react-native';
-import { Card, Text } from '@ui-kitten/components';
+import { Card, Text, List, ListItem } from '@ui-kitten/components';
 import { MEALS } from '../mocks/dummy-data';
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
 import HeaderBtnComponent from '../components/header/header-btn.component';
+import {ScrollView} from 'react-native-gesture-handler';
 
 const MealDetailScreen = (props: any) => {
   const mealId = props.navigation.getParam('mealId');
@@ -13,8 +14,17 @@ const MealDetailScreen = (props: any) => {
     mealDetails.isFavorite = !mealDetails.isFavorite;
   }
 
+  const renderListItem = (itemData: {[key: string]: any}) => {
+    return (
+      <ListItem
+          title={itemData.item}
+      />
+    );
+  }
+
   return (
-    <Card style={styles.card}>
+    <ScrollView style={{height: '100%'}}>
+      <Card style={styles.card}>
         <View style={styles.cardHeader}>
           <Image
             style={styles.cardImage}
@@ -22,10 +32,32 @@ const MealDetailScreen = (props: any) => {
             resizeMode="cover"
           />
           <View style={styles.cardTitle}>
-            <Text category='h5' numberOfLines={2}>{mealDetails.title}</Text>
+            <Text category='h4' numberOfLines={2}>{mealDetails.title}</Text>
+          </View>
+          <View style={styles.cardAttributes}>
+            <Text>{mealDetails.duration}m</Text>
+            <Text>{mealDetails.complexity.toUpperCase()}</Text>
+            <Text>{mealDetails.affordability.toUpperCase()}</Text>
+          </View>
+          <View style={styles.list}>
+            <Text category='h6'>Ingredients</Text>
+            <List
+              // style={styles.list}
+              data={mealDetails.steps}
+              renderItem={renderListItem}
+            />    
+          </View>
+          <View style={styles.list}>
+            <Text category='h6'>Steps</Text>
+            <List
+              // style={styles.list}
+              data={mealDetails.ingredients}
+              renderItem={renderListItem}
+            />    
           </View>
         </View>
       </Card>
+    </ScrollView>
   );
 };
 
@@ -35,7 +67,10 @@ MealDetailScreen.navigationOptions = (navigationData: {[key: string]: any}) => {
   return {
     headerTitle: mealDetails.title,
     headerRight: () => (<HeaderButtons HeaderButtonComponent={HeaderBtnComponent}>
-      <Item title='Favorite' iconName='star' onPress={() => {console.log('Favorite food, yeah!')}}/>
+      <Item title='Favorite'
+            iconName='star' 
+            color={mealDetails.isFavorite ? '#843CDB' : '#BDBDBD'}
+            onPress={() => {console.log('Favorite food, yeah!')}}/>
     </HeaderButtons>)
   }
 };
@@ -65,6 +100,18 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between'
+  },
+  cardAttributes: {
+    backgroundColor: '#EEEEEE',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginHorizontal: -6,
+    paddingHorizontal: 10,
+    paddingVertical: 3 
+  },
+  list: {
+    paddingVertical: 5,
+    paddingHorizontal: 8
   },
   cardFooter: {
     padding: 10
