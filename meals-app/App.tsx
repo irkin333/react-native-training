@@ -1,14 +1,13 @@
 import React, { useState } from 'react';
 import AppLoading from 'expo-app-loading'; 
 import * as Font from 'expo-font';
-import MealsNavigator from './navigation/meals-navigation';
+import AppNavigator from './navigation/app-navigation';
 import * as eva from '@eva-design/eva';
 import { ApplicationProvider, IconRegistry, Layout } from '@ui-kitten/components';
 import { EvaIconsPack } from '@ui-kitten/eva-icons';
 import { enableScreens } from 'react-native-screens';
 import { default as theme } from './shared/theme/meals-app-theme.json';
 import { default as mapping } from './shared/general-styles/meals-typography.json'; // <-- Import app mapping
-import {AppNavigator} from './kitten-nav/navigation.component';
 
 enableScreens();
 const fetchFonts = () => {
@@ -35,9 +34,8 @@ export default function App() {
       <IconRegistry icons={EvaIconsPack} />
       <ApplicationProvider {...eva} theme={{ ...eva.light, ...theme }} customMapping={mapping as any}>
         <Layout style={{flex: 1}} level='1'>
-          <MealsNavigator />
+          <AppNavigator />
         </Layout>
-        {/* <AppNavigator/> */}
       </ApplicationProvider>
     </>
   );
