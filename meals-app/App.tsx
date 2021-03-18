@@ -8,6 +8,9 @@ import { EvaIconsPack } from '@ui-kitten/eva-icons';
 import { enableScreens } from 'react-native-screens';
 import { default as theme } from './shared/theme/meals-app-theme.json';
 import { default as mapping } from './shared/general-styles/meals-typography.json'; // <-- Import app mapping
+import { createStore, combineReducers } from 'redux';
+import { Provider } from 'react-redux';
+import mealsReducer from './store/reducers/meals';
 
 enableScreens();
 const fetchFonts = () => {
@@ -20,6 +23,12 @@ const fetchFonts = () => {
   });
 };
 
+const rootReducer = combineReducers({
+  meals: mealsReducer
+});
+
+const store = createStore(rootReducer);
+
 export default function App() {
   const [isAppLoaded, setAppLoadedState] = useState(false);
 
@@ -30,13 +39,13 @@ export default function App() {
   }
 
   return (
-    <>
+    <Provider store={store}>
       <IconRegistry icons={EvaIconsPack} />
       <ApplicationProvider {...eva} theme={{ ...eva.light, ...theme }} customMapping={mapping as any}>
         <Layout style={{flex: 1}} level='1'>
           <AppNavigator />
         </Layout>
       </ApplicationProvider>
-    </>
+    </Provider>
   );
 }

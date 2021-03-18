@@ -4,7 +4,7 @@ import { Card, Text, List, ListItem } from '@ui-kitten/components';
 import { MEALS } from '../mocks/dummy-data';
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
 import HeaderBtnComponent from '../components/header/header-btn.component';
-import {ScrollView} from 'react-native-gesture-handler';
+import {FlatList, ScrollView} from 'react-native-gesture-handler';
 
 const MealDetailScreen = (props: any) => {
   const mealId = props.navigation.getParam('mealId');
@@ -23,7 +23,7 @@ const MealDetailScreen = (props: any) => {
   }
 
   return (
-    <ScrollView style={{height: '100%'}}>
+    <ScrollView style={{height: '100%', flex: 1}}>
       <Card style={styles.card}>
         <View style={styles.cardHeader}>
           <Image
