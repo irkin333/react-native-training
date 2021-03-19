@@ -27,6 +27,7 @@ const MealItemComponent = (props: any) => {
          <ImageBackground source={{uri: item.imageUrl}} style={styles.bgImage}>
           <View style={styles.cardDetailsWrapper}>
             <View style={styles.cardDetails}>
+              <Text style={styles.detailsText}>Is vegan: {item.isVegan ? "yes" : 'no'}</Text>
               <Icon style={styles.cardDetailIcon} fill='#ffffff' name='clock'/>
               <Text style={styles.detailsText}>{item.duration}m</Text>
             </View>
